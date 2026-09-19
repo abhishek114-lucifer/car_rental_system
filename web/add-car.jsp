@@ -1,0 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" import="model.User,util.Html" %>
+<% User user=(User)session.getAttribute("user"); if(user==null||!"admin".equals(user.getRole())){response.sendError(403);return;} String error=(String)request.getAttribute("error"); %>
+<!DOCTYPE html><html><head><title>Add car | DriveEasy</title><link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"></head><body>
+<nav><a class="brand" href="${pageContext.request.contextPath}/admin.jsp">DRIVEEASY / ADMIN</a><a href="${pageContext.request.contextPath}/logout">Log out</a></nav>
+<main class="form-page"><div class="form-card"><p class="eyebrow">FLEET MANAGEMENT</p><h1>Add car</h1><%if(error!=null){%><div class="message error"><%=Html.escape(error)%></div><%}%>
+<form method="post" action="${pageContext.request.contextPath}/add-car"><label>Car name<input name="carName" required></label><label>Model / year<input name="model" required></label><label>Price per day (INR)<input type="number" name="pricePerDay" min="0.01" step="0.01" required></label><label>Online image URL<input type="url" name="imageUrl" placeholder="https://..." required></label><label>Status<select name="status"><option>Available</option><option>Booked</option></select></label><button class="button" type="submit">Add to fleet <span>-></span></button></form></div></main></body></html>
